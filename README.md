@@ -85,13 +85,17 @@ Method ini nanti di-override oleh semua subclass-nya.
 
 5. Polymorphism di EldercareSystem.java
 <img width="504" height="146" alt="image" src="https://github.com/user-attachments/assets/d7015591-4488-4f12-9eec-31b35c65fcf1" />
+
 Objek LoginSystem dipanggil lewat referensi SistemEldercare
 
 6. Letak polymorphism pada src/Main/EldercareSystem.java terletak di:
+   
 <img width="656" height="288" alt="image" src="https://github.com/user-attachments/assets/ae46631c-5052-480f-bcf6-bb5188c03243" />
+
 Di sini program mengecek tipe asli objek user, kalau ternyata user itu objek dari Petugas, maka program nya masuk MenuPetugas, kalau user itu objek dari Dokter, maka program nya masuk MenuDokter
 
 Dan terletak di:
+
 <img width="672" height="157" alt="image" src="https://github.com/user-attachments/assets/5630bcfd-8e9e-44ce-97df-3d1475488637" />
 
 Pada baris User user = auth.login(username, password); user ini bentuknya variabel bertipe User, tapi isinya bisa macam-macam tergantung siapa yang login. Misalnya kalau dokter yang login maka user isinya objek Dokter. Kalau petugas yang login maka user isinya objek Petugas.
