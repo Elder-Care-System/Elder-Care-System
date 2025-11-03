@@ -4,57 +4,6 @@
 
 ## **FItur Program**
 
-## **Flowchart**
-
-### **1. Menu login**
-
-<img width="484" height="465" alt="image" src="https://github.com/user-attachments/assets/4f2ad9e7-5f66-4e27-93c8-5830b27701a7" />
-
-### **2. Menu Petugas**
-
-<img width="428" height="594" alt="image" src="https://github.com/user-attachments/assets/ea802fd4-19ae-405e-8585-c4c3d68c4435" />
-
-### **3. Menu Dashboard**
-
-<img width="146" height="590" alt="image" src="https://github.com/user-attachments/assets/2da4870c-5229-448d-ba99-af6e4f5df62e" />
-
-### **4. Menu Laporan dengan fitur tambah id lansia ( cyan) dan fitur menampilkan data lansia beserta laporan nya (ungu)**
-
-<img width="421" height="593" alt="image" src="https://github.com/user-attachments/assets/00038443-7254-49be-87a2-4cc631858e89" />
-
-### **5. Menu Dokter dengan fitur ubah data lansia (abu-abu), hapus data lansia (biru), dan hasil pencarian data lansia (hijau tua)**
-
-<img width="355" height="528" alt="image" src="https://github.com/user-attachments/assets/d9e3ba6f-115d-4037-9a54-d67e54301920" />
-
-### **6. Menu Rekam Medis**
-
-<img width="586" height="489" alt="image" src="https://github.com/user-attachments/assets/05590c8e-46c6-4ad6-950d-c81ea2fa719d" />
-
-### **7. Menu Regis Petugas (merah) dan Dokter (abu-abu)**
-
-<img width="340" height="573" alt="image" src="https://github.com/user-attachments/assets/dda24e5e-4a9e-4a9d-9fea-f0defd125bd8" />
-
-### **8. Menu Dokter**
-
-<img width="514" height="288" alt="image" src="https://github.com/user-attachments/assets/917d2f6b-0e00-4ab2-b80d-3dc5f82ab288" />
-
-### **9. Menu Laporan**
-
-<img width="531" height="463" alt="image" src="https://github.com/user-attachments/assets/e8484dda-3e88-413e-acb7-7a6afb59bae3" />
-
-### **10. Menu Dashboard**
-
-<img width="88" height="580" alt="image" src="https://github.com/user-attachments/assets/7afb04fc-db34-4eba-ac96-43eced630b91" />
-
-### **11. Menu Rekam Medis**
-
-<img width="331" height="595" alt="image" src="https://github.com/user-attachments/assets/5a93f157-9e6c-4359-a96b-8835c9798ae4" />
-
-### **11. Menu Ubah rekam medis (Coklat), hapus data lansia (orange), dan cari rekam medis (hitam)**
-
-<img width="402" height="593" alt="image" src="https://github.com/user-attachments/assets/d43e1c37-9d45-411d-8819-7188b94a5e73" />
-
-
 ## **Penerapan OOP**
 
 ### **Encapsulation**
