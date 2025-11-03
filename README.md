@@ -19,15 +19,922 @@
 
 ### **1. Encapsulation**
 
+#### A. Model/Dokter.java
+    
+    public class Dokter extends User {
+        private String namaDokter;
+        private String spesialis;
+    
+        public String getNamaDokter() { return namaDokter; }
+        public void setNamaDokter(String namaDokter) { this.namaDokter = namaDokter; }
+    
+        public String getSpesialis() { return spesialis; }
+        public void setSpesialis(String spesialis) { this.spesialis = spesialis; }
+    }
+Variabel namaDokter dan spesialis dibuat private agar tidak bisa diakses langsung dari luar kelas, untuk mengaksesnya menggunakan getter dan setter seperti getNamaDokter() dan setSpesialis().
+
+#### B. Model/Lansia.java
+
+    public class Lansia extends Person {
+        private int usia;
+        private String jenisKelamin;
+        private String alamat;
+    
+        public Lansia() {}
+    
+        public Lansia(int idLansia, String namaLansia, int usia, String jenisKelamin, String alamat) {
+            super(idLansia, namaLansia);
+            this.usia = usia;
+            this.jenisKelamin = jenisKelamin;
+            this.alamat = alamat;
+        }
+    
+        public int getUsia() { return usia; }
+        public void setUsia(int usia) { this.usia = usia; }
+    
+        public String getJenisKelamin() { return jenisKelamin; }
+        public void setJenisKelamin(String jenisKelamin) { this.jenisKelamin = jenisKelamin; }
+    
+        public String getAlamat() { return alamat; }
+        public void setAlamat(String alamat) { this.alamat = alamat; }
+Pada bagian private field dari idLansia, usia, jenisKelamin, alamat tidak bisa diubah langsung
+
+#### C. Model/Petugas.java
+
+    public class Petugas extends User {
+        private String petugasBagian;
+        private String namaPetugas;
+    
+        public Petugas() {}
+    
+        public Petugas(int idUser, String username, String password, int idPuskesmas,
+                       String namaPetugas, String petugasBagian) {
+            super(idUser, username, password, idPuskesmas, namaPetugas);
+            this.namaPetugas = namaPetugas;
+            this.petugasBagian = petugasBagian;
+        }
+    
+        public String getPetugasBagian() { return petugasBagian; }
+        public void setPetugasBagian(String petugasBagian) { this.petugasBagian = petugasBagian; }
+    
+        public String getNamaPetugas() { return namaPetugas; }
+        public void setNamaPetugas(String namaPetugas) { 
+            this.namaPetugas = namaPetugas; 
+            super.setNama(namaPetugas);
+        }
+Disini, atribut dibuat private dan hanya dapat diakses dari method getter/setter.
+
+#### D. Model/RekamMedis.java
+
+    public class RekamMedis {
+        private int idRekam;
+        private Date tanggalPemeriksaan;
+        private String diagnosis;
+        private String tindakan;
+        private int idDokter;
+        private Lansia lansia;
+    
+        public RekamMedis() {}
+    
+        public RekamMedis(int idRekam, Date tanggalPemeriksaan, String diagnosis, String tindakan, int idDokter, Lansia lansia) {
+            this.idRekam = idRekam;
+            this.tanggalPemeriksaan = tanggalPemeriksaan;
+            this.diagnosis = diagnosis;
+            this.tindakan = tindakan;
+            this.idDokter = idDokter;
+            this.lansia = lansia;
+        }
+    
+        public int getIdRekam() {
+            return idRekam;
+        }
+    
+        public void setIdRekam(int idRekam) {
+            this.idRekam = idRekam;
+        }
+    
+        public Date getTanggalPemeriksaan() {
+            return tanggalPemeriksaan;
+        }
+    
+        public void setTanggalPemeriksaan(Date tanggalPemeriksaan) {
+            this.tanggalPemeriksaan = tanggalPemeriksaan;
+        }
+    
+        public String getDiagnosis() {
+            return diagnosis;
+        }
+    
+        public void setDiagnosis(String diagnosis) {
+            this.diagnosis = diagnosis;
+        }
+    
+        public String getTindakan() {
+            return tindakan;
+        }
+    
+        public void setTindakan(String tindakan) {
+            this.tindakan = tindakan;
+        }
+    
+        public int getIdDokter() {
+            return idDokter;
+        }
+    
+        public void setIdDokter(int idDokter) {
+            this.idDokter = idDokter;
+        }
+    
+        public Lansia getLansia() {
+            return lansia;
+        }
+    
+        public void setLansia(Lansia lansia) {
+            this.lansia = lansia;
+        }
+Disini membuat semua field data medis menjadi private
+
+#### E. Model/User.java
+
+    public class User extends Person {
+        private String username;
+        private String password;
+        private int idPuskesmas;
+    
+        public User() {}
+    
+        public User(int idUser, String username, String password, int idPuskesmas, String nama) {
+            super(idUser, nama);
+            this.username = username;
+            this.password = password;
+            this.idPuskesmas = idPuskesmas;
+        }
+    
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
+    
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+    
+        public int getIdPuskesmas() { return idPuskesmas; }
+        public void setIdPuskesmas(int idPuskesmas) { this.idPuskesmas = idPuskesmas; }
+        
+        public int getIdUser() { return getId(); }
+        public void setIdUser(int idUser) { setId(idUser); }
+Disini encapsulation melindungi data login pengguna dari akses tidak sah dengan menyimpan password secara private
+
+#### F. Model/Person.java
+
+    public abstract class Person {
+        private int id;
+        private String nama;
+    
+        public Person() {}
+    
+        public Person(int id, String nama) {
+            this.id = id;
+            this.nama = nama;
+        }
+    
+        public int getId() { return id; }
+        public void setId(int id) { this.id = id; }
+    
+        public String getNama() { return nama; }
+        public void setNama(String nama) { this.nama = nama; }
+Disini, Person sebagai superclass melindungi atribut id dan nama, semua subclass yaitu User, Lansia, Dokter, dan lain-lain mengakses data ini lewat getter/setter, bukan langsung.
+
+#### G. Model/LaporanKesehatan.java
+
+    public class LaporanKesehatan {
+        private int idLaporan;
+        private Date tanggalPeriksa;
+        private String keluhan;
+        private String tindakan;
+        private int idPetugas;
+        private Lansia lansia;
+        public LaporanKesehatan() {}
+    
+        public LaporanKesehatan(int idLaporan, Date tanggalPeriksa, String keluhan, String tindakan, int idPetugas, Lansia lansia) {
+            this.idLaporan = idLaporan;
+            this.tanggalPeriksa = tanggalPeriksa;
+            this.keluhan = keluhan;
+            this.tindakan = tindakan;
+            this.idPetugas = idPetugas;
+            this.lansia = lansia;
+        }
+    
+        // getter / setter
+        public int getIdLaporan() { return idLaporan; }
+        public void setIdLaporan(int idLaporan) { this.idLaporan = idLaporan; }
+    
+        public Date getTanggalPeriksa() { return tanggalPeriksa; }
+        public void setTanggalPeriksa(Date tanggalPeriksa) { this.tanggalPeriksa = tanggalPeriksa; }
+    
+        public String getKeluhan() { return keluhan; }
+        public void setKeluhan(String keluhan) { this.keluhan = keluhan; }
+    
+        public String getTindakan() { return tindakan; }
+        public void setTindakan(String tindakan) { this.tindakan = tindakan; }
+    
+        public int getIdPetugas() { return idPetugas; }
+        public void setIdPetugas(int idPetugas) { this.idPetugas = idPetugas; }
+    
+        public Lansia getLansia() { return lansia; }
+        public void setLansia(Lansia lansia) { this.lansia = lansia; }
+    }
+Disini semua atribut dibuat private, jadi hanya bisa diubah lewat setter.Enkapsulation membuat data laporan seperti keluhan dan tindakan tidak diubah sembarangan.
+
+#### H. Model/UserView.java
+
+    public class UserView {
+        private int idUser;
+        private String username;
+        private String role;
+        private String nama;
+    
+        public UserView(int idUser, String username, String role, String nama) {
+            this.idUser = idUser;
+            this.username = username;
+            this.role = role;
+            this.nama = nama;
+        }
+    
+        public int getIdUser() { return idUser; }
+        public String getUsername() { return username; }
+        public String getRole() { return role; }
+        public String getNama() { return nama; }
+    }
+Disini, data user untuk tampilan (view) di privasi dengan getter dan setter.
+
+#### I. Model/KoneksiEldercare.java
+
+    public class KoneksiEldercare {
+        private static final String URL = "jdbc:mysql://localhost:3306/eldercare_system";
+        private static final String USER = "root";
+        private static final String PASSWORD = "";
+        private static Connection conn;
+    
+        private KoneksiEldercare() {}
+Enkapsulation di sini melindungi detail koneksi database seperti URL, USER, dan PASSWORD. Constructor dibuat private agar hanya dipakai oleh class itu sendiri.
+
 ### **2. Inheritance**
+
+#### A. Model/Person.java
+
+    public abstract class Person {
+        private int id;
+        private String nama;
+    
+        public Person() {}
+    
+        public Person(int id, String nama) {
+            this.id = id;
+            this.nama = nama;
+        }
+    
+        public int getId() { return id; }
+        public void setId(int id) { this.id = id; }
+    
+        public String getNama() { return nama; }
+        public void setNama(String nama) { this.nama = nama; }
+Person adalah superclass yang berisi atribut umum seperti id, nama, jadi tidak bisa dibuat objek langsung. Person Dipakai oleh semua class yang mewakili pengguna (user, dokter, petugas, lansia).
+
+#### B. Model/User.java
+
+    public class User extends Person {
+        private String username;
+        private String password;
+        private int idPuskesmas;
+    
+        public User() {}
+    
+        public User(int idUser, String username, String password, int idPuskesmas, String nama) {
+            super(idUser, nama);
+            this.username = username;
+            this.password = password;
+            this.idPuskesmas = idPuskesmas;
+        }
+    
+        public String getUsername() { return username; }
+        public void setUsername(String username) { this.username = username; }
+    
+        public String getPassword() { return password; }
+        public void setPassword(String password) { this.password = password; }
+    
+        public int getIdPuskesmas() { return idPuskesmas; }
+        public void setIdPuskesmas(int idPuskesmas) { this.idPuskesmas = idPuskesmas; }
+        
+        public int getIdUser() { return getId(); }
+        public void setIdUser(int idUser) { setId(idUser); }
+User mewarisi semua atribut dan method dari Person, jadi User sudah memiliki id dan nama dari Person, dan menggunakan idUser dan nama untuk mengisi data dari superclass.
+
+#### C. Model/Dokter.java
+
+    public class Dokter extends User {
+        private String namaDokter;
+        private String spesialis;
+    
+        public Dokter() {}
+    
+        public Dokter(int idUser, String username, String password, int idPuskesmas,
+                      String namaDokter, String spesialis) {
+            super(idUser, username, password, idPuskesmas, namaDokter);
+            this.namaDokter = namaDokter;
+            this.spesialis = spesialis;
+        }
+    
+        public String getNamaDokter() { return namaDokter; }
+        public void setNamaDokter(String namaDokter) { 
+            this.namaDokter = namaDokter; 
+            setNama(namaDokter);
+        }
+    
+        public String getSpesialis() { return spesialis; }
+        public void setSpesialis(String spesialis) { this.spesialis = spesialis; }
+Dokter mewarisi semua atribut dan method dari User, termasuk username, password, idPuskesmas, serta id dan nama dari Person, jadi tidak perlu mendefinisikan ulang data umum seperti id atau nama.
+
+#### D. Model/Petugas.java
+
+    public class Petugas extends User {
+        private String petugasBagian;
+        private String namaPetugas;
+    
+        public Petugas() {}
+    
+        public Petugas(int idUser, String username, String password, int idPuskesmas,
+                       String namaPetugas, String petugasBagian) {
+            super(idUser, username, password, idPuskesmas, namaPetugas);
+            this.namaPetugas = namaPetugas;
+            this.petugasBagian = petugasBagian;
+        }
+    
+        public String getPetugasBagian() { return petugasBagian; }
+        public void setPetugasBagian(String petugasBagian) { this.petugasBagian = petugasBagian; }
+    
+        public String getNamaPetugas() { return namaPetugas; }
+        public void setNamaPetugas(String namaPetugas) { 
+            this.namaPetugas = namaPetugas; 
+            super.setNama(namaPetugas);
+        }
+Petugas juga sama seperti dokter, akan mewarisi semua data dari User dan Person, dan hanya menambahkan atribut khusus yaitu petugasBagian dan namaPetugas.
+
+#### E. Model/Lansia.java
+
+    public class Lansia extends Person {
+        private int usia;
+        private String jenisKelamin;
+        private String alamat;
+    
+        public Lansia() {}
+    
+        public Lansia(int idLansia, String namaLansia, int usia, String jenisKelamin, String alamat) {
+            super(idLansia, namaLansia);
+            this.usia = usia;
+            this.jenisKelamin = jenisKelamin;
+            this.alamat = alamat;
+        }
+    
+        public int getUsia() { return usia; }
+        public void setUsia(int usia) { this.usia = usia; }
+    
+        public String getJenisKelamin() { return jenisKelamin; }
+        public void setJenisKelamin(String jenisKelamin) { this.jenisKelamin = jenisKelamin; }
+    
+        public String getAlamat() { return alamat; }
+        public void setAlamat(String alamat) { this.alamat = alamat; }
+Lansia langsung mewarisi atribut id dan nama dari Person dan menambah atribut tambahan yaitu usia, jenisKelamin, alamat.
 
 ### **3. Abstraction**
 
+#### A. Model/Person.java
+
+    public abstract class Person {
+        private int id;
+        private String nama;
+    
+        public Person() {}
+    
+        public Person(int id, String nama) {
+            this.id = id;
+            this.nama = nama;
+        }
+    
+        public int getId() { return id; }
+        public void setId(int id) { this.id = id; }
+    
+        public String getNama() { return nama; }
+        public void setNama(String nama) { this.nama = nama; }
+    
+        public abstract void showInfo();
+    }
+Person dideklarasikan sebagai abstract class yang artinya tidak bisa dibuat objek langsung. jadi hanya kelas turunannya seperti User dan Lansia yang bisa digunakan. Tujuannya agar program hanya tahu bahwa setiap orang pasti punya id dan nama.
+
+#### B. Model/User.java
+
+    public class User extends Person {
+        private String username;
+        private String password;
+        private int idPuskesmas;
+    
+        public User() {}
+    
+        public User(int idUser, String username, String password, int idPuskesmas, String nama) {
+            super(idUser, nama);
+            this.username = username;
+            this.password = password;
+            this.idPuskesmas = idPuskesmas;
+        }
+User membuat tipe “Person” menjadi tipe “User” dengan tambahan username, password, dan puskesmas. Di sini terlihat Person hanya memberi struktur, sementara User menambahkan detailnya.
+
+#### C. Dokter.java dan Petugas.java
+
+##### * Model/Dokter.java
+  
+
+       public class Dokter extends User {
+            private String namaDokter;
+            private String spesialis;
+
+##### * Model/Petugas.java
+
+      public class Petugas extends User {
+          private String petugasBagian;
+          private String namaPetugas;
+Disini, Dokter dan Petugas mewarisi User, dan dengan demikian juga Person. Dokter mewakili user dengan peran medis, dan Petugas mewakili user non-medis.
+
+#### D Model/Lansia.java
+
+      public class Lansia extends Person {
+          private int usia;
+          private String jenisKelamin;
+          private String alamat;
+Lansia juga mewarisi Person, tapi berbeda dengan User. Abstraction di sini menunjukkan bahwa meskipun Lansia dan User adalah “Person”, keduanya memiliki detail dan tanggung jawab berbeda.
+
+#### E. Model/RekamMedis.java
+
+      private Lansia lansia;
+Disini, RekamMedis memanggil lansia.getNama() untuk mendapatkan nama pasien.
+
+#### F. Model/LaporanKesehatan.java
+
+    private Lansia lansia;
+Disini, LaporanKesehatan juga menyimpan objek Lansia sama seperti RekamMedis.
+
+#### G. Model/KoneksiEldercare.java
+
+    private static Connection conn;
+
+    private KoneksiEldercare() {}
+disini, detail koneksi database disembunyikan dan pengguna class ini hanya perlu memanggil getConnection()
+
 ### **4. Polymorphism**
+
+#### A. Class Person dan turunannya
+
+##### * Model/Person.java
+
+      package Model;
+      
+      public abstract class Person {
+          private int id;
+          private String nama;
+      
+          public Person() {}
+      
+          public Person(int id, String nama) {
+              this.id = id;
+              this.nama = nama;
+          }
+      
+          public int getId() { return id; }
+          public void setId(int id) { this.id = id; }
+      
+          public String getNama() { return nama; }
+          public void setNama(String nama) { this.nama = nama; }
+      
+          public abstract void showInfo();
+      }
+Disini, Person adalah abstrac class, artinya tidak bisa dibuat objek langsung, tapi bisa menjadi tipe referensi umum untuk semua user di sistem ini.
+
+#### B. Class User, Dokter, dan Petugas
+
+##### * Model/User.java
+
+      package Model;
+      
+      public class User extends Person {
+          private String username;
+          private String password;
+          private int idPuskesmas;
+      
+          public User() {}
+      
+          public User(int idUser, String username, String password, int idPuskesmas, String nama) {
+              super(idUser, nama);
+              this.username = username;
+              this.password = password;
+              this.idPuskesmas = idPuskesmas;
+          }
+      
+          public String getUsername() { return username; }
+          public void setUsername(String username) { this.username = username; }
+      
+          public String getPassword() { return password; }
+          public void setPassword(String password) { this.password = password; }
+      
+          public int getIdPuskesmas() { return idPuskesmas; }
+          public void setIdPuskesmas(int idPuskesmas) { this.idPuskesmas = idPuskesmas; }
+          
+          public int getIdUser() { return getId(); }
+          public void setIdUser(int idUser) { setId(idUser); }
+
+##### * Model/Dokter.java
+
+      package Model;
+      
+      public class Dokter extends User {
+          private String namaDokter;
+          private String spesialis;
+      
+          public Dokter() {}
+      
+          public Dokter(int idUser, String username, String password, int idPuskesmas,
+                        String namaDokter, String spesialis) {
+              super(idUser, username, password, idPuskesmas, namaDokter);
+              this.namaDokter = namaDokter;
+              this.spesialis = spesialis;
+          }
+      
+          public String getNamaDokter() { return namaDokter; }
+          public void setNamaDokter(String namaDokter) { 
+              this.namaDokter = namaDokter; 
+              setNama(namaDokter);
+          }
+      
+          public String getSpesialis() { return spesialis; }
+          public void setSpesialis(String spesialis) { this.spesialis = spesialis; }
+
+##### * Model/Petugas.java
+
+      package Model;
+      
+      public class Petugas extends User {
+          private String petugasBagian;
+          private String namaPetugas;
+      
+          public Petugas() {}
+      
+          public Petugas(int idUser, String username, String password, int idPuskesmas,
+                         String namaPetugas, String petugasBagian) {
+              super(idUser, username, password, idPuskesmas, namaPetugas);
+              this.namaPetugas = namaPetugas;
+              this.petugasBagian = petugasBagian;
+          }
+      
+          public String getPetugasBagian() { return petugasBagian; }
+          public void setPetugasBagian(String petugasBagian) { this.petugasBagian = petugasBagian; }
+      
+          public String getNamaPetugas() { return namaPetugas; }
+          public void setNamaPetugas(String namaPetugas) { 
+              this.namaPetugas = namaPetugas; 
+              super.setNama(namaPetugas);
+          }
+Disini, Dokter dan Petugas sama-sama “user” tapi punya atribut berbeda. Mereka bisa digunakan di tempat yang menerima User.
+
+#### C. Bagian Service
+
+##### * LoginSystem.java
+
+       public User login(String username, String password) {
+              String sqlUser = "SELECT * FROM user WHERE username = ? AND password = ?";
+              try (Connection conn = KoneksiEldercare.getConnection();
+                   PreparedStatement ps = conn.prepareStatement(sqlUser)) {
+      
+                  ps.setString(1, username);
+                  ps.setString(2, password);
+                  try (ResultSet rs = ps.executeQuery()) {
+                      if (rs.next()) {
+                          int idUser = rs.getInt("id_user");
+                          int idPuskesmas = rs.getInt("id_puskesmas");
+      
+                          String qPetugas = "SELECT * FROM petugas_puskesmas WHERE id_user = ?";
+                          try (PreparedStatement ps2 = conn.prepareStatement(qPetugas)) {
+                              ps2.setInt(1, idUser);
+                              try (ResultSet r2 = ps2.executeQuery()) {
+                                  if (r2.next()) {
+                                      String namaPetugas = r2.getString("nama_petugas");
+                                      String bagian = r2.getString("petugas_bagian");
+                                      Petugas petugas = new Petugas(idUser, username, password, idPuskesmas,
+                                                                   namaPetugas, bagian);
+                                      return petugas;
+                                  }
+                              }
+                          }
+      
+                          String qDokter = "SELECT * FROM dokter WHERE id_user = ?";
+                          try (PreparedStatement ps3 = conn.prepareStatement(qDokter)) {
+                              ps3.setInt(1, idUser);
+                              try (ResultSet r3 = ps3.executeQuery()) {
+                                  if (r3.next()) {
+                                      String namaDokter = r3.getString("nama_dokter");
+                                      String spesialis = r3.getString("spesialis");
+                                      Dokter dokter = new Dokter(idUser, username, password, idPuskesmas,
+                                                                 namaDokter, spesialis);
+                                      return dokter;
+                                  }
+                              }
+                          }
+      
+                          User u = new User(idUser, username, password, idPuskesmas, rs.getString("username"));
+                          return u;
+                      }
+                  }
+      
+              } catch (Exception e) {
+                  System.out.println("Error saat login: " + e.getMessage());
+                  e.printStackTrace();
+              }
+Disini, meskipun user dideklarasikan bertipe User, tapi objeknya bisa jadi Dokter atau Petugas. Saat memanggil method:
+
+    System.out.println(user.getNama());
+Java akan otomatis memanggil method dari class yang sesuai dengan tipe objek sebenarnya.
 
 ### **5. Interface**
 
+#### A. ServiceUser.java
+
+    package Service;
+    
+    import Model.*;
+    import java.sql.*;
+    import java.util.ArrayList;
+    import java.util.List;
+    public class ServiceUser {
+    
+    public boolean daftarPetugas(String username, String password, int idPuskesmas, 
+                                  String namaPetugas, String petugasBagian) {
+        String sqlUser = "INSERT INTO user (username, password, id_puskesmas) VALUES (?, ?, ?)";
+        String sqlPetugas = "INSERT INTO petugas_puskesmas (id_user, nama_petugas, petugas_bagian) VALUES (?, ?, ?)";
+    
+        try (Connection conn = KoneksiEldercare.getConnection()) {
+            conn.setAutoCommit(false);
+            int idUserBaru = -1;
+    
+            try (PreparedStatement ps1 = conn.prepareStatement(sqlUser, Statement.RETURN_GENERATED_KEYS)) {
+                ps1.setString(1, username);
+                ps1.setString(2, password);
+                ps1.setInt(3, idPuskesmas);
+                ps1.executeUpdate();
+    
+                try (ResultSet rs = ps1.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        idUserBaru = rs.getInt(1);
+                    }
+                }
+            }
+            
+            if (idUserBaru == -1) {
+                conn.rollback();
+                System.out.println("❌ Gagal membuat user baru.");
+                return false;
+            }
+            
+            try (PreparedStatement ps2 = conn.prepareStatement(sqlPetugas)) {
+                ps2.setInt(1, idUserBaru);
+                ps2.setString(2, namaPetugas);       // Nama disimpan di tabel petugas_puskesmas
+                ps2.setString(3, petugasBagian);     // Bagian petugas
+                ps2.executeUpdate();
+            }
+    
+            conn.commit(); // Commit transaksi
+            System.out.println("✅ Petugas berhasil didaftarkan!");
+            System.out.println("   Username: " + username);
+            System.out.println("   Nama: " + namaPetugas);
+            return true;
+    
+        } catch (SQLException e) {
+            System.out.println("❌ Gagal mendaftarkan petugas: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    
+    
+        public boolean daftarDokter(String username, String password, int idPuskesmas, 
+                                     String namaDokter, String spesialis) {
+            String sqlUser = "INSERT INTO user (username, password, id_puskesmas) VALUES (?, ?, ?)";
+            String sqlDokter = "INSERT INTO dokter (id_user, nama_dokter, spesialis) VALUES (?, ?, ?)";
+    
+            try (Connection conn = KoneksiEldercare.getConnection()) {
+                conn.setAutoCommit(false);
+    
+                int idUserBaru = -1;
+    
+                try (PreparedStatement ps1 = conn.prepareStatement(sqlUser, Statement.RETURN_GENERATED_KEYS)) {
+                    ps1.setString(1, username);
+                    ps1.setString(2, password);
+                    ps1.setInt(3, idPuskesmas);
+                    ps1.executeUpdate();
+    
+                    try (ResultSet rs = ps1.getGeneratedKeys()) {
+                        if (rs.next()) {
+                            idUserBaru = rs.getInt(1);
+                        }
+                    }
+                }
+    
+                if (idUserBaru == -1) {
+                    conn.rollback();
+                    System.out.println("❌ Gagal membuat user baru.");
+                    return false;
+                }
+    
+                try (PreparedStatement ps2 = conn.prepareStatement(sqlDokter)) {
+                    ps2.setInt(1, idUserBaru);
+                    ps2.setString(2, namaDokter);
+                    ps2.setString(3, spesialis);
+                    ps2.executeUpdate();
+                }
+    
+                conn.commit();
+                System.out.println("✅ Dokter berhasil didaftarkan!");
+                System.out.println("   Username: " + username);
+                System.out.println("   Nama: dr. " + namaDokter);
+                System.out.println("   Spesialis: " + spesialis);
+                return true;
+    
+            } catch (SQLException e) {
+                System.out.println("❌ Gagal mendaftarkan dokter: " + e.getMessage());
+                return false;
+            }
+        }
+    
+        public boolean isUsernameExist(String username) {
+            String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
+            try (Connection conn = KoneksiEldercare.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql)) {
+    
+                ps.setString(1, username);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (rs.next()) {
+                        return rs.getInt(1) > 0;
+                    }
+                }
+            } catch (SQLException e) {
+                System.out.println("❌ Error cek username: " + e.getMessage());
+            }
+            return false;
+        }
+        
+        public List<UserView> lihatSemuaAkun() {
+            List<UserView> list = new ArrayList<>();
+            String sql = """
+                SELECT u.id_user, u.username,
+                       CASE 
+                           WHEN p.id_user IS NOT NULL THEN 'Petugas'
+                           WHEN d.id_user IS NOT NULL THEN 'Dokter'
+                           ELSE 'Unknown'
+                       END AS role,
+                       COALESCE(p.nama_petugas, d.nama_dokter, '-') AS nama
+                FROM user u
+                LEFT JOIN petugas_puskesmas p ON u.id_user = p.id_user
+                LEFT JOIN dokter d ON u.id_user = d.id_user
+            """;
+    
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+    
+            while (rs.next()) {
+                list.add(new UserView(
+                    rs.getInt("id_user"),
+                    rs.getString("username"),
+                    rs.getString("role"),
+                    rs.getString("nama")
+                ));
+            }
+    
+        } catch (SQLException e) {
+            System.out.println("❌ Gagal load data akun: " + e.getMessage());
+        }
+    
+        return list;
+    }
+    
+        public List<Petugas> getAllPetugas() {
+            List<Petugas> list = new ArrayList<>();
+            String sql = """
+                SELECT u.id_user, u.username, u.password, u.id_puskesmas,
+                       p.nama_petugas, p.petugas_bagian
+                FROM user u
+                JOIN petugas_puskesmas p ON u.id_user = p.id_user
+            """;
+    
+            try (Connection conn = KoneksiEldercare.getConnection();
+                 PreparedStatement ps = conn.prepareStatement(sql);
+                 ResultSet rs = ps.executeQuery()) {
+    
+                while (rs.next()) {
+                    list.add(new Petugas(
+                        rs.getInt("id_user"),
+                        rs.getString("username"),
+                        rs.getString("password"),
+                        rs.getInt("id_puskesmas"),
+                        rs.getString("nama_petugas"),
+                        rs.getString("petugas_bagian")
+                    ));
+                }
+    
+            } catch (SQLException e) {
+                System.out.println("❌ Gagal load data petugas: " + e.getMessage());
+            }
+    
+            return list;
+        }
+    
+        public boolean updateAkun(int idUser, String usernameBaru, String passwordBaru, 
+                                  String namaBaru, String bagianAtauSpesialis, String role) {
+            String sqlUpdateUser = "UPDATE user SET username = ?, password = ? WHERE id_user = ?";
+            String sqlUpdatePetugas = "UPDATE petugas_puskesmas SET nama_petugas = ?, petugas_bagian = ? WHERE id_user = ?";
+            String sqlUpdateDokter = "UPDATE dokter SET nama_dokter = ?, spesialis = ? WHERE id_user = ?";
+    
+            try (Connection conn = KoneksiEldercare.getConnection()) {
+                conn.setAutoCommit(false);
+
+                try (PreparedStatement psUser = conn.prepareStatement(sqlUpdateUser)) {
+                    psUser.setString(1, usernameBaru);
+                    psUser.setString(2, passwordBaru);
+                    psUser.setInt(3, idUser);
+                    psUser.executeUpdate();
+                }
+    
+                if ("Petugas".equalsIgnoreCase(role)) {
+                    try (PreparedStatement psPetugas = conn.prepareStatement(sqlUpdatePetugas)) {
+                        psPetugas.setString(1, namaBaru);
+                        psPetugas.setString(2, bagianAtauSpesialis);
+                        psPetugas.setInt(3, idUser);
+                        psPetugas.executeUpdate();
+                    }
+                } else if ("Dokter".equalsIgnoreCase(role)) {
+                    try (PreparedStatement psDokter = conn.prepareStatement(sqlUpdateDokter)) {
+                        psDokter.setString(1, namaBaru);
+                        psDokter.setString(2, bagianAtauSpesialis);
+                        psDokter.setInt(3, idUser);
+                        psDokter.executeUpdate();
+                    }
+                }
+    
+                conn.commit();
+                System.out.println("✅ Akun berhasil diperbarui untuk ID: " + idUser);
+                return true;
+    
+            } catch (SQLException e) {
+                System.out.println("❌ Gagal update akun: " + e.getMessage());
+                return false;
+            }
+        }
+        
+        public boolean hapusAkun(int idUser) {
+            String sqlHapusPetugas = "DELETE FROM petugas_puskesmas WHERE id_user = ?";
+            String sqlHapusDokter = "DELETE FROM dokter WHERE id_user = ?";
+            String sqlHapusUser = "DELETE FROM user WHERE id_user = ?";
+    
+            try (Connection conn = KoneksiEldercare.getConnection()) {
+                conn.setAutoCommit(false);
+    
+                try (PreparedStatement ps1 = conn.prepareStatement(sqlHapusPetugas)) {
+                    ps1.setInt(1, idUser);
+                    ps1.executeUpdate();
+                }
+    
+                try (PreparedStatement ps2 = conn.prepareStatement(sqlHapusDokter)) {
+                    ps2.setInt(1, idUser);
+                    ps2.executeUpdate();
+                }
+    
+                try (PreparedStatement ps3 = conn.prepareStatement(sqlHapusUser)) {
+                    ps3.setInt(1, idUser);
+                    ps3.executeUpdate();
+                }
+    
+                conn.commit();
+                System.out.println("✅ Akun ID " + idUser + " berhasil dihapus!");
+                return true;
+            } catch (SQLException e) {
+                System.out.println("❌ Gagal menghapus akun: " + e.getMessage());
+                return false;
+            }
+        }
+    
+    }
+Disini, ServiceUser tidak punya implementasi langsung, ServiceUser hanya mendefinisikan perilaku untuk layanan yang berhubungan dengan data User. Class seperti SistemEldercare.java atau LoginSystem.java akan mengimplementasikan interface ini untuk mengatur logika user/pengguna.
+
 ## **Package**
+
+<img width="317" height="594" alt="image" src="https://github.com/user-attachments/assets/80e7f1d9-2d27-409e-a9de-fed8114a2255" />
+
+<img width="326" height="99" alt="image" src="https://github.com/user-attachments/assets/e1b4b938-85ca-4707-a072-023d4df29b75" />
+
 
 ## **Cara Menggunakan Program**
 ### Menu login
