@@ -1,0 +1,42 @@
+package Model;
+
+import java.sql.Date;
+
+public class LaporanKesehatan {
+    private int idLaporan;
+    private Date tanggalPeriksa;    // gunakan java.sql.Date untuk kompatibilitas JDBC
+    private String keluhan;
+    private String tindakan;
+    private int idPetugas;
+    private Lansia lansia; // referensi objek lansia
+
+    public LaporanKesehatan() {}
+
+    public LaporanKesehatan(int idLaporan, Date tanggalPeriksa, String keluhan, String tindakan, int idPetugas, Lansia lansia) {
+        this.idLaporan = idLaporan;
+        this.tanggalPeriksa = tanggalPeriksa;
+        this.keluhan = keluhan;
+        this.tindakan = tindakan;
+        this.idPetugas = idPetugas;
+        this.lansia = lansia;
+    }
+
+    // getter / setter
+    public int getIdLaporan() { return idLaporan; }
+    public void setIdLaporan(int idLaporan) { this.idLaporan = idLaporan; }
+
+    public Date getTanggalPeriksa() { return tanggalPeriksa; }
+    public void setTanggalPeriksa(Date tanggalPeriksa) { this.tanggalPeriksa = tanggalPeriksa; }
+
+    public String getKeluhan() { return keluhan; }
+    public void setKeluhan(String keluhan) { this.keluhan = keluhan; }
+
+    public String getTindakan() { return tindakan; }
+    public void setTindakan(String tindakan) { this.tindakan = tindakan; }
+
+    public int getIdPetugas() { return idPetugas; }
+    public void setIdPetugas(int idPetugas) { this.idPetugas = idPetugas; }
+
+    public Lansia getLansia() { return lansia; }
+    public void setLansia(Lansia lansia) { this.lansia = lansia; }
+}
