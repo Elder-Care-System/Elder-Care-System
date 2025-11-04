@@ -1,0 +1,74 @@
+package Model;
+
+import java.util.Date;
+
+public class RekamMedis {
+    private int idRekam;
+    private Date tanggalPemeriksaan;
+    private String diagnosis;
+    private String tindakan;
+    private int idDokter;
+    private Lansia lansia; // ✅ relasi ke objek Lansia
+
+    // ✅ Constructor kosong
+    public RekamMedis() {}
+
+    // ✅ Constructor lengkap (opsional)
+    public RekamMedis(int idRekam, Date tanggalPemeriksaan, String diagnosis, String tindakan, int idDokter, Lansia lansia) {
+        this.idRekam = idRekam;
+        this.tanggalPemeriksaan = tanggalPemeriksaan;
+        this.diagnosis = diagnosis;
+        this.tindakan = tindakan;
+        this.idDokter = idDokter;
+        this.lansia = lansia;
+    }
+
+    // ✅ Getter & Setter
+    public int getIdRekam() {
+        return idRekam;
+    }
+
+    public void setIdRekam(int idRekam) {
+        this.idRekam = idRekam;
+    }
+
+    public Date getTanggalPemeriksaan() {
+        return tanggalPemeriksaan;
+    }
+
+    public void setTanggalPemeriksaan(Date tanggalPemeriksaan) {
+        this.tanggalPemeriksaan = tanggalPemeriksaan;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
+    }
+
+    public String getTindakan() {
+        return tindakan;
+    }
+
+    public void setTindakan(String tindakan) {
+        this.tindakan = tindakan;
+    }
+
+    public int getIdDokter() {
+        return idDokter;
+    }
+
+    public void setIdDokter(int idDokter) {
+        this.idDokter = idDokter;
+    }
+
+    public Lansia getLansia() {
+        return lansia;
+    }
+
+    public void setLansia(Lansia lansia) {
+        this.lansia = lansia;
+    }
+}
