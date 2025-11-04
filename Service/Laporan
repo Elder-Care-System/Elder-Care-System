@@ -1,0 +1,192 @@
+package Service;
+
+import Model.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Laporan {
+
+    // ✅ CREATE
+    public boolean tambahLaporanDanLansia(Lansia lansia, LaporanKesehatan laporan) {
+        String sqlLansia = "INSERT INTO lansia (nama_lansia, usia, jenis_kelamin, alamat) VALUES (?, ?, ?, ?)";
+        String sqlLaporan = "INSERT INTO laporan_kesehatan (id_petugas, id_lansia, keluhan, tindakan, tanggal_periksa) VALUES (?, ?, ?, ?, NOW())";
+
+        try (Connection conn = KoneksiEldercare.getConnection()) {
+            conn.setAutoCommit(false); // transaksi
+
+            // Tambah lansia
+            int idLansiaBaru = -1;
+            try (PreparedStatement ps1 = conn.prepareStatement(sqlLansia, Statement.RETURN_GENERATED_KEYS)) {
+                ps1.setString(1, lansia.getNama());
+                ps1.setInt(2, lansia.getUsia());
+                ps1.setString(3, lansia.getJenisKelamin());
+                ps1.setString(4, lansia.getAlamat());
+                ps1.executeUpdate();
+
+                try (ResultSet rs = ps1.getGeneratedKeys()) {
+                    if (rs.next()) idLansiaBaru = rs.getInt(1);
+                }
+            }
+
+            if (idLansiaBaru == -1) {
+                conn.rollback();
+                System.out.println("❌ Gagal mendapatkan ID lansia baru.");
+                return false;
+            }
+
+            // Tambah laporan
+            try (PreparedStatement ps2 = conn.prepareStatement(sqlLaporan)) {
+                ps2.setInt(1, laporan.getIdPetugas());
+                ps2.setInt(2, idLansiaBaru);
+                ps2.setString(3, laporan.getKeluhan());
+                ps2.setString(4, laporan.getTindakan());
+                ps2.executeUpdate();
+            }
+
+            conn.commit();
+            System.out.println("✅ Data lansia dan laporan berhasil ditambahkan!");
+            return true;
+            
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error tambah laporan: " + e.getMessage());
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // ✅ READ (tidak diubah)
+    public List<LaporanKesehatan> lihatSemuaLaporan() {
+        List<LaporanKesehatan> list = new ArrayList<>();
+        String sql = """
+            SELECT lk.id_laporan, lk.tanggal_periksa, lk.keluhan, lk.tindakan, lk.id_petugas,
+                   l.id_lansia, l.nama_lansia, l.usia, l.jenis_kelamin, l.alamat
+            FROM laporan_kesehatan lk
+            JOIN lansia l ON lk.id_lansia = l.id_lansia
+            ORDER BY lk.tanggal_periksa DESC
+        """;
+
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Lansia lansia = new Lansia(
+                        rs.getInt("id_lansia"),
+                        rs.getString("nama_lansia"),
+                        rs.getInt("usia"),
+                        rs.getString("jenis_kelamin"),
+                        rs.getString("alamat")
+                );
+
+                LaporanKesehatan lap = new LaporanKesehatan();
+                lap.setIdLaporan(rs.getInt("id_laporan"));
+                lap.setTanggalPeriksa(rs.getDate("tanggal_periksa"));
+                lap.setKeluhan(rs.getString("keluhan"));
+                lap.setTindakan(rs.getString("tindakan"));
+                lap.setIdPetugas(rs.getInt("id_petugas"));
+                lap.setLansia(lansia);
+
+                list.add(lap);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error baca laporan: " + e.getMessage());
+        }
+        return list;
+    }
+
+    // ✅ UPDATE
+    public boolean ubahLaporanKesehatan(int idLaporan, String keluhanBaru, String tindakanBaru) {
+        String sql = "UPDATE laporan_kesehatan SET keluhan = ?, tindakan = ? WHERE id_laporan = ?";
+
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, keluhanBaru);
+            ps.setString(2, tindakanBaru);
+            ps.setInt(3, idLaporan);
+
+            int affected = ps.executeUpdate();
+            if (affected > 0) {
+                System.out.println("✅ Laporan berhasil diupdate.");
+                return true;
+            } else {
+                System.out.println("⚠️ ID laporan tidak ditemukan.");
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error update laporan: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // ✅ DELETE
+    public boolean hapusLaporanKesehatan(int idLaporan) {
+        String sql = "DELETE FROM laporan_kesehatan WHERE id_laporan = ?";
+
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, idLaporan);
+            int affected = ps.executeUpdate();
+
+            if (affected > 0) {
+                System.out.println("✅ Laporan berhasil dihapus.");
+                return true;
+            } else {
+                System.out.println("⚠️ Tidak ada laporan dengan ID itu.");
+                return false;
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error hapus laporan: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // ✅ SEARCH (tidak diubah)
+    public List<LaporanKesehatan> cariLaporanByNamaLansia(String nama) {
+        List<LaporanKesehatan> hasil = new ArrayList<>();
+        String sql = """
+            SELECT lk.id_laporan, lk.tanggal_periksa, lk.keluhan, lk.tindakan, lk.id_petugas,
+                   l.id_lansia, l.nama_lansia, l.usia, l.jenis_kelamin, l.alamat
+            FROM laporan_kesehatan lk
+            JOIN lansia l ON lk.id_lansia = l.id_lansia
+            WHERE l.nama_lansia LIKE ?
+        """;
+
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + nama + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Lansia lansia = new Lansia(
+                            rs.getInt("id_lansia"),
+                            rs.getString("nama_lansia"),
+                            rs.getInt("usia"),
+                            rs.getString("jenis_kelamin"),
+                            rs.getString("alamat")
+                    );
+
+                    LaporanKesehatan lap = new LaporanKesehatan();
+                    lap.setIdLaporan(rs.getInt("id_laporan"));
+                    lap.setTanggalPeriksa(rs.getDate("tanggal_periksa"));
+                    lap.setKeluhan(rs.getString("keluhan"));
+                    lap.setTindakan(rs.getString("tindakan"));
+                    lap.setIdPetugas(rs.getInt("id_petugas"));
+                    lap.setLansia(lansia);
+
+                    hasil.add(lap);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error cari laporan: " + e.getMessage());
+        }
+        return hasil;
+    }
+}
