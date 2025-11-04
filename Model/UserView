@@ -1,0 +1,23 @@
+package Model;
+
+public class UserView {
+    private int idUser;
+    private String username;
+    private String role;
+    private String nama;
+    private String spesialis;
+
+    public UserView(int idUser, String username, String role, String nama, String spesialis) {
+        this.idUser = idUser;
+        this.username = username;
+        this.role = role;
+        this.nama = nama;
+        this.spesialis = spesialis;
+    }
+
+    public int getIdUser() { return idUser; }
+    public String getUsername() { return username; }
+    public String getRole() { return role; }
+    public String getNama() { return nama; }
+    public String getSpesialis() {return spesialis; }
+}
