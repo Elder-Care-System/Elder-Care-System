@@ -950,7 +950,11 @@ User masuk sesuai role masing_masing
 
 ![Gambar WhatsApp 2025-11-02 pukul 21 16 27_b9a473da](https://github.com/user-attachments/assets/d9f21a06-58f6-4e62-9942-0e0acad5397d)
 
+Sebagai contoh disini melakukan login sebagai petugas kesehatan.
+
 <img width="1322" height="883" alt="image" src="https://github.com/user-attachments/assets/170a6f35-af9b-4dbc-801b-e94ab301485f" />
+
+Dan ini contoh apabila melakukan login sebagai dokter.
 
 <img width="1326" height="882" alt="image" src="https://github.com/user-attachments/assets/a70da113-7a9b-4701-b6bd-4302a0cb8836" />
 
@@ -963,53 +967,74 @@ Setelah user login sebagai petugas kesehatan, maka tampilan pertama yang muncul 
 
 
 ### 3. Menu petugas bagian laporan kesehatan
+Ini merupakan tampilan menu laporan kesehatan, disini akan menampilkan semua data riwayat laporan kesehatan lansia.
 
 ![Gambar WhatsApp 2025-11-03 pukul 07 58 43_02598bd5](https://github.com/user-attachments/assets/6d68074e-fc18-47fe-98bf-2e6d501e0b63)
 
-
 ### 4. Menu petugas bagian riwayat rekam medis
+ini merupakan tampilan dari menu rekam medis, disini akan menampilkan seluruh riwayat data rekam medis.
 
 ![Gambar WhatsApp 2025-11-03 pukul 07 58 43_b57a7751](https://github.com/user-attachments/assets/d7b23586-fbee-4678-b96e-d7a393030582)
 
 
 ### 5. Menu petugas bagian kelola akun
+Ini merupakan tampilan menu kelola akun, disini akan menampilkan seluruh data akun yang ada pada program.
 
 ![Gambar WhatsApp 2025-11-03 pukul 07 58 45_9a2452ab](https://github.com/user-attachments/assets/ef64c553-c341-4d28-8204-eae2dc47fa34)
 
 ### 6. Menu petugas bagian laporan kesehatan pada fitur tambah laporan
+Pada menu ini, petugas akan menambah data lansia sebagai laporan kesehatan
+
 <img width="1344" height="932" alt="image" src="https://github.com/user-attachments/assets/1a895430-c12e-47b0-946f-06f62ea142d0" />
 
 ### 7. Menu petugas bagian laporan pada fitur pencarian data lansia
+Setelah data lansia ditambahkan, data akan masuk pada riwayat laporan kesehatan. Disini diterapkan fitur pencarian untuk mempermudah pencarian data.
+
 <img width="1343" height="936" alt="image" src="https://github.com/user-attachments/assets/88a9fd82-779a-4a59-aaeb-a8dbc7423427" />
 
+### 8. Menu petugas bagian laporan pada fitur ubah data lansia
+Disini, petugas dapat melakukan perubahan data laporan lansia yaitu keluhan/diagnosis dan juga tindakan.
+![Gambar WhatsApp 2025-11-04 pukul 12 02 24_1bc7e8b0](https://github.com/user-attachments/assets/44051490-efda-4ebb-ada3-5ff6cfb12532)
+
 ### 8. Menu petugas bagian laporan pada fitur hapus data lansia
+Disini juga bisa melakukan penghapusan data lansia apabila ingin menghapus data laporan lansia.
 
 <img width="1345" height="939" alt="image" src="https://github.com/user-attachments/assets/ba5b8b9a-3c54-47a8-81ca-b58e9affc590" />
 
 ### 9. Menu petugas bagian kelola akun pada fitur tambah akun
+Pada menu ini, petugas dapat menambah akun baru, yaitu akun petugas dan juga akun dokter yang baru.
+
 <img width="1344" height="940" alt="image" src="https://github.com/user-attachments/assets/3d9592bc-0240-4e20-a0c5-bfa529da4b28" />
+
+#### A. Registrasi akun petugas baru
+Sebagai contoh disini melakukan proses tambah akun petugas yang baru
 <img width="1350" height="943" alt="image" src="https://github.com/user-attachments/assets/168af59c-2f70-4179-85b2-ac2aaebebaa4" />
-
-#### A. Registrasi akun
-
 <img width="1350" height="942" alt="image" src="https://github.com/user-attachments/assets/07e16e43-c36b-47e5-967e-875a18908cdd" />
 
 #### B. ubah data akun
+Pada menu kelola akun, disini dapat melakukan perubahan username seperti contoh ingin melakukan perubahan username pada akun "petugas60" menjadi "petugas16".
 <img width="1349" height="937" alt="image" src="https://github.com/user-attachments/assets/cfd4a554-8353-44a5-b85f-3a739b5ca363" />
+Setelah selesai melakukan perbahan, maka username akun sebelumnya akan berganti menjadi username yang baru.
+
 <img width="1346" height="942" alt="image" src="https://github.com/user-attachments/assets/4ccf8ec1-1b09-4685-bc95-91ff4ed13b63" />
 
 ### 10. Menu dokter
+Ini merupakan tampilan dari menu dokter apabila user melakukan login menjadi dokter, dengan tampilan utama yang menyajikan riwayat laporan kesehatan.
 <img width="1349" height="946" alt="image" src="https://github.com/user-attachments/assets/97b78a92-7a01-4b21-8001-72347e57fd28" />
 
 ### 11. Menu dokter bagian laporan kesehatan
+Pada bagian menu laporan kesehatan, akan menampilkan data-data laporan kesehatan lansia yang telah ditambahkan oleh petugas kesehatan.
 <img width="1344" height="942" alt="image" src="https://github.com/user-attachments/assets/99af158a-3ddd-4b22-91c1-bc82608a8268" />
 
 ### 12. Menu dokter bagian rekam medis
+Ini adalah menu rekam medis, yang dimana dokter akan menambah, mengubah, dan mengahpus data rekam medis.
 <img width="1348" height="944" alt="image" src="https://github.com/user-attachments/assets/15e3ee5d-fda9-4b7e-b4a0-c2fb2023024a" />
 
 #### A. Tambah data rekam medis
+Pada fitur tambah data rekam medis, dokter akan menambah data lansia seperti ID lansia, diagnosis, beserta tindakan.
 <img width="1344" height="940" alt="image" src="https://github.com/user-attachments/assets/bbe65382-c051-419a-9a4f-ee52876becd5" />
 
 #### B. ubah data rekam medis
+Pada fitur ubah data rekam medis, dokter dapat mengubah data dari diagnosis dan juga tindakan.
 <img width="1343" height="943" alt="image" src="https://github.com/user-attachments/assets/66353665-6647-4eb6-be0c-791b2e1769af" />
 
