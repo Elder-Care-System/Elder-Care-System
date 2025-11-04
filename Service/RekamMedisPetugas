@@ -1,0 +1,88 @@
+package Service;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import Model.*;
+
+public class RekamMedisPetugas {
+    
+    public List<RekamMedis> lihatSemuaRekamMedis() {
+        List<RekamMedis> daftar = new ArrayList<>();
+        String sql = """
+            SELECT rm.*, l.id_lansia, l.nama_lansia, l.usia, l.jenis_kelamin, l.alamat
+            FROM rekam_medis rm
+            JOIN lansia l ON rm.id_lansia = l.id_lansia
+            ORDER BY rm.tanggal_pemeriksaan DESC
+        """;
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                Lansia lansia = new Lansia(
+                        rs.getInt("id_lansia"),
+                        rs.getString("nama_lansia"),
+                        rs.getInt("usia"),
+                        rs.getString("jenis_kelamin"),
+                        rs.getString("alamat")
+                );
+
+                RekamMedis rm = new RekamMedis();
+                rm.setIdRekam(rs.getInt("id_rekam"));
+                rm.setTanggalPemeriksaan(rs.getDate("tanggal_pemeriksaan"));
+                rm.setDiagnosis(rs.getString("diagnosis"));
+                rm.setTindakan(rs.getString("tindakan"));
+                rm.setIdDokter(rs.getInt("id_dokter"));
+
+                daftar.add(rm);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error baca rekam medis: " + e.getMessage());
+        }
+        return daftar;
+    }
+    
+    public List<RekamMedis> cariRekamMedisByNamaLansia(String namaLansia) {
+        List<RekamMedis> hasil = new ArrayList<>();
+        String sql = """
+            SELECT rm.*, l.id_lansia, l.nama_lansia, l.usia, l.jenis_kelamin, l.alamat
+            FROM rekam_medis rm
+            JOIN lansia l ON rm.id_lansia = l.id_lansia
+            WHERE l.nama_lansia LIKE ?
+        """;
+
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, "%" + namaLansia + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Lansia lansia = new Lansia(
+                            rs.getInt("id_lansia"),
+                            rs.getString("nama_lansia"),
+                            rs.getInt("usia"),
+                            rs.getString("jenis_kelamin"),
+                            rs.getString("alamat")
+                    );
+
+                    RekamMedis rm = new RekamMedis();
+                    rm.setIdRekam(rs.getInt("id_rekam"));
+                    rm.setTanggalPemeriksaan(rs.getDate("tanggal_pemeriksaan"));
+                    rm.setDiagnosis(rs.getString("diagnosis"));
+                    rm.setTindakan(rs.getString("tindakan"));
+                    rm.setIdDokter(rs.getInt("id_dokter"));
+                    rm.setLansia(lansia);
+
+                    hasil.add(rm);
+                }
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Error cari rekam medis: " + e.getMessage());
+        }
+        return hasil;
+    }
+    
+}
