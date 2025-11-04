@@ -941,12 +941,13 @@ Disini, ServiceUser tidak punya implementasi langsung, ServiceUser hanya mendefi
 
 <img width="317" height="594" alt="image" src="https://github.com/user-attachments/assets/80e7f1d9-2d27-409e-a9de-fed8114a2255" />
 
+
 <img width="326" height="99" alt="image" src="https://github.com/user-attachments/assets/e1b4b938-85ca-4707-a072-023d4df29b75" />
 
 
 ## **Cara Menggunakan Program**
 ### 1. Menu login
-User masuk sesuai role masing_masing
+Pada tampilan login, user akan masuk sesuai role masing-masing
 
 ![Gambar WhatsApp 2025-11-02 pukul 21 16 27_b9a473da](https://github.com/user-attachments/assets/d9f21a06-58f6-4e62-9942-0e0acad5397d)
 
