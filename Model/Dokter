@@ -1,0 +1,29 @@
+package Model;
+
+public class Dokter extends User {
+    private String namaDokter;
+    private String spesialis;
+
+    public Dokter() {}
+
+    public Dokter(int idUser, String username, String password, int idPuskesmas,
+                  String namaDokter, String spesialis) {
+        super(idUser, username, password, idPuskesmas, namaDokter);
+        this.namaDokter = namaDokter;
+        this.spesialis = spesialis;
+    }
+
+    public String getNamaDokter() { return namaDokter; }
+    public void setNamaDokter(String namaDokter) { 
+        this.namaDokter = namaDokter; 
+        setNama(namaDokter);
+    }
+
+    public String getSpesialis() { return spesialis; }
+    public void setSpesialis(String spesialis) { this.spesialis = spesialis; }
+
+    @Override
+    public void showInfo() {
+        System.out.println("Dokter: " + namaDokter + " (Spesialis: " + spesialis + ")");
+    }
+}
