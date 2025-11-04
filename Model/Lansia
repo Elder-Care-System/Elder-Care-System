@@ -1,0 +1,35 @@
+package Model;
+
+public class Lansia extends Person {
+    private int idLansia;
+    private int usia;
+    private String jenisKelamin;
+    private String alamat;
+
+    public Lansia() {}
+
+    public Lansia(int idLansia, String namaLansia, int usia, String jenisKelamin, String alamat) {
+        super(idLansia, namaLansia);
+        this.idLansia = idLansia;
+        this.usia = usia;
+        this.jenisKelamin = jenisKelamin;
+        this.alamat = alamat;
+    }
+    
+    public int getidLansia() {return idLansia;}
+    public void setidLansia(int idLansia) {this.idLansia = idLansia;}
+
+    public int getUsia() { return usia; }
+    public void setUsia(int usia) { this.usia = usia; }
+
+    public String getJenisKelamin() { return jenisKelamin; }
+    public void setJenisKelamin(String jenisKelamin) { this.jenisKelamin = jenisKelamin; }
+
+    public String getAlamat() { return alamat; }
+    public void setAlamat(String alamat) { this.alamat = alamat; }
+
+    @Override
+    public void showInfo() {
+        System.out.println("Lansia: " + getNama() + ", Usia: " + usia + ", Alamat: " + alamat);
+    }
+}
