@@ -945,49 +945,49 @@ Disini, ServiceUser tidak punya implementasi langsung, ServiceUser hanya mendefi
 
 
 ## **Cara Menggunakan Program**
-### Menu login
+### 1. Menu login
 User masuk sesuai role masing_masing
 
 ![Gambar WhatsApp 2025-11-02 pukul 21 16 27_b9a473da](https://github.com/user-attachments/assets/d9f21a06-58f6-4e62-9942-0e0acad5397d)
 
-### Menu Petugas bagian laporan kesehatan
+### 2. Menu Petugas bagian laporan kesehatan
 Setelah user login sebagai petugas kesehatan, maka tampilan pertama yang muncul adalah riwayat laporan kesehatan beserta menu dashboard, laporan kesehatan, rekam medis, kelola akun, dan logout.
 
 ![Gambar WhatsApp 2025-11-03 pukul 07 58 43_a404e08d](https://github.com/user-attachments/assets/7133f8ed-49f3-444c-bf49-86fb844a9230)
 
 
-### Menu petugas bagian laporan kesehatan
+### 3. Menu petugas bagian laporan kesehatan
 
 ![Gambar WhatsApp 2025-11-03 pukul 07 58 43_02598bd5](https://github.com/user-attachments/assets/6d68074e-fc18-47fe-98bf-2e6d501e0b63)
 
 
-### Menu petugas bagian riwayat rekam medis
+### 4. Menu petugas bagian riwayat rekam medis
 
 ![Gambar WhatsApp 2025-11-03 pukul 07 58 43_b57a7751](https://github.com/user-attachments/assets/d7b23586-fbee-4678-b96e-d7a393030582)
 
 
-### Menu petugas bagian kelola akun
+### 5. Menu petugas bagian kelola akun
 
 ![Gambar WhatsApp 2025-11-03 pukul 07 58 45_9a2452ab](https://github.com/user-attachments/assets/ef64c553-c341-4d28-8204-eae2dc47fa34)
 
-### Menu petugas bagian laporan kesehatan pada fitur tambah laporan
+### 6. Menu petugas bagian laporan kesehatan pada fitur tambah laporan
 
-### Menu petugas bagian laporan pada fitur pencarian data lansia
+### 7. Menu petugas bagian laporan pada fitur pencarian data lansia
 
-### Menu petugas bagian laporan pada fitur hapus data lansia
+### 8. Menu petugas bagian laporan pada fitur hapus data lansia
 
-### Menu petugas bagian kelola akun pada fitur tambah akun
+### 9. Menu petugas bagian kelola akun pada fitur tambah akun
 
-#### 1. Registrasi akun
+#### A. Registrasi akun
 
-#### 2. ubah data akun
+#### B. ubah data akun
 
-### Menu dokter
+### 10. Menu dokter
 
-### Menu dokter bagian laporan kesehatan
+### 11. Menu dokter bagian laporan kesehatan
 
-### Menu dokter bagian rekam medis
+### 12. Menu dokter bagian rekam medis
 
-#### 1. Tambah data rekam medis
+#### A. Tambah data rekam medis
 
-#### 2. ubah data rekam medis
+#### B. ubah data rekam medis
