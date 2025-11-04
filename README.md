@@ -961,8 +961,8 @@ Dan ini contoh apabila melakukan login sebagai dokter.
 
 
 
-### 2. Menu Petugas bagian laporan kesehatan
-Setelah user login sebagai petugas kesehatan, maka tampilan pertama yang muncul adalah riwayat laporan kesehatan beserta menu dashboard, laporan kesehatan, rekam medis, kelola akun, dan logout.
+### 2. Menu Petugas 
+Setelah user login sebagai petugas kesehatan, maka tampilan pertama yang muncul adalah tampilan dashboard, yang memuat menu dashboard, laporan kesehatan, rekam medis, kelola akun, dan logout.
 
 ![Gambar WhatsApp 2025-11-03 pukul 07 58 43_a404e08d](https://github.com/user-attachments/assets/7133f8ed-49f3-444c-bf49-86fb844a9230)
 
@@ -1020,7 +1020,7 @@ Setelah selesai melakukan perbahan, maka username akun sebelumnya akan berganti 
 <img width="1346" height="942" alt="image" src="https://github.com/user-attachments/assets/4ccf8ec1-1b09-4685-bc95-91ff4ed13b63" />
 
 ### 10. Menu dokter
-Ini merupakan tampilan dari menu dokter apabila user melakukan login menjadi dokter, dengan tampilan utama yang menyajikan riwayat laporan kesehatan.
+Ini merupakan tampilan dari menu dokter apabila user melakukan login menjadi dokter, dengan tampilan utama yang menampilkan dashboard yang menyajikan ringkasan data lansia.
 <img width="1349" height="946" alt="image" src="https://github.com/user-attachments/assets/97b78a92-7a01-4b21-8001-72347e57fd28" />
 
 ### 11. Menu dokter bagian laporan kesehatan
