@@ -1,0 +1,63 @@
+package Service;
+
+import Model.*;
+import java.sql.*;
+
+public class LoginSystem implements SistemEldercare {
+
+    @Override
+    public User login(String username, String password) {
+        String sqlUser = "SELECT * FROM user WHERE username = ? AND password = ?";
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sqlUser)) {
+
+            ps.setString(1, username);
+            ps.setString(2, password);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int idUser = rs.getInt("id_user");
+                    int idPuskesmas = rs.getInt("id_puskesmas");
+
+                    // Cek petugas
+                    String qPetugas = "SELECT * FROM petugas_puskesmas WHERE id_user = ?";
+                    try (PreparedStatement ps2 = conn.prepareStatement(qPetugas)) {
+                        ps2.setInt(1, idUser);
+                        try (ResultSet r2 = ps2.executeQuery()) {
+                            if (r2.next()) {
+                                String namaPetugas = r2.getString("nama_petugas");
+                                String bagian = r2.getString("petugas_bagian");
+                                Petugas petugas = new Petugas(idUser, username, password, idPuskesmas,
+                                                             namaPetugas, bagian);
+                                return petugas;
+                            }
+                        }
+                    }
+
+                    // Cek dokter
+                    String qDokter = "SELECT * FROM dokter WHERE id_user = ?";
+                    try (PreparedStatement ps3 = conn.prepareStatement(qDokter)) {
+                        ps3.setInt(1, idUser);
+                        try (ResultSet r3 = ps3.executeQuery()) {
+                            if (r3.next()) {
+                                String namaDokter = r3.getString("nama_dokter");
+                                String spesialis = r3.getString("spesialis");
+                                Dokter dokter = new Dokter(idUser, username, password, idPuskesmas,
+                                                           namaDokter, spesialis);
+                                return dokter;
+                            }
+                        }
+                    }
+
+                    // jika bukan petugas/dokter, kembalikan generic User (misal admin)
+                    User u = new User(idUser, username, password, idPuskesmas, rs.getString("username"));
+                    return u;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error saat login: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
+    }
+}
