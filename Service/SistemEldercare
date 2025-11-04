@@ -1,0 +1,8 @@
+package Service;
+
+import Model.*;
+
+public interface SistemEldercare {
+
+    User login(String username, String password);
+}
