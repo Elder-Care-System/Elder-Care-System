@@ -1,0 +1,288 @@
+package Service;
+
+import Model.*;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+public class ServiceUser {
+
+// ✅ REGISTRASI PETUGAS BARU
+public boolean daftarPetugas(String username, String password, int idPuskesmas, 
+                              String namaPetugas, String petugasBagian) {
+    // Hapus kolom 'nama' dan 'role' dari query
+    String sqlUser = "INSERT INTO user (username, password, id_puskesmas) VALUES (?, ?, ?)";
+    String sqlPetugas = "INSERT INTO petugas_puskesmas (id_user, nama_petugas, petugas_bagian) VALUES (?, ?, ?)";
+
+    try (Connection conn = KoneksiEldercare.getConnection()) {
+        conn.setAutoCommit(false); // Mulai transaksi
+
+        int idUserBaru = -1;
+
+        // 1. Insert ke tabel USER
+        try (PreparedStatement ps1 = conn.prepareStatement(sqlUser, Statement.RETURN_GENERATED_KEYS)) {
+            ps1.setString(1, username);
+            ps1.setString(2, password);
+            ps1.setInt(3, idPuskesmas);
+            ps1.executeUpdate();
+
+            // Ambil ID user yang baru dibuat
+            try (ResultSet rs = ps1.getGeneratedKeys()) {
+                if (rs.next()) {
+                    idUserBaru = rs.getInt(1);
+                }
+            }
+        }
+
+        // Cek apakah ID user berhasil didapat
+        if (idUserBaru == -1) {
+            conn.rollback();
+            System.out.println("❌ Gagal membuat user baru.");
+            return false;
+        }
+
+        // 2. Insert ke tabel PETUGAS_PUSKESMAS
+        try (PreparedStatement ps2 = conn.prepareStatement(sqlPetugas)) {
+            ps2.setInt(1, idUserBaru);
+            ps2.setString(2, namaPetugas);       // Nama disimpan di tabel petugas_puskesmas
+            ps2.setString(3, petugasBagian);     // Bagian petugas
+            ps2.executeUpdate();
+        }
+
+        conn.commit(); // Commit transaksi
+        System.out.println("✅ Petugas berhasil didaftarkan!");
+        System.out.println("   Username: " + username);
+        System.out.println("   Nama: " + namaPetugas);
+        return true;
+
+    } catch (SQLException e) {
+        System.out.println("❌ Gagal mendaftarkan petugas: " + e.getMessage());
+        return false;
+    }
+}
+
+
+
+    // ✅ REGISTRASI DOKTER BARU
+    public boolean daftarDokter(String username, String password, int idPuskesmas, 
+                                 String namaDokter, String spesialis) {
+        String sqlUser = "INSERT INTO user (username, password, id_puskesmas) VALUES (?, ?, ?)";
+        String sqlDokter = "INSERT INTO dokter (id_user, nama_dokter, spesialis) VALUES (?, ?, ?)";
+
+        try (Connection conn = KoneksiEldercare.getConnection()) {
+            conn.setAutoCommit(false); // Mulai transaksi
+
+            int idUserBaru = -1;
+
+            // 1. Insert ke tabel USER
+            try (PreparedStatement ps1 = conn.prepareStatement(sqlUser, Statement.RETURN_GENERATED_KEYS)) {
+                ps1.setString(1, username);
+                ps1.setString(2, password);
+                ps1.setInt(3, idPuskesmas);
+                ps1.executeUpdate();
+
+                // Ambil ID user yang baru dibuat
+                try (ResultSet rs = ps1.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        idUserBaru = rs.getInt(1);
+                    }
+                }
+            }
+
+            // Cek apakah ID user berhasil didapat
+            if (idUserBaru == -1) {
+                conn.rollback();
+                System.out.println("❌ Gagal membuat user baru.");
+                return false;
+            }
+
+            // 2. Insert ke tabel DOKTER
+            try (PreparedStatement ps2 = conn.prepareStatement(sqlDokter)) {
+                ps2.setInt(1, idUserBaru);
+                ps2.setString(2, namaDokter);
+                ps2.setString(3, spesialis);
+                ps2.executeUpdate();
+            }
+
+            conn.commit(); // Commit transaksi
+            System.out.println("✅ Dokter berhasil didaftarkan!");
+            System.out.println("   Username: " + username);
+            System.out.println("   Nama: dr. " + namaDokter);
+            System.out.println("   Spesialis: " + spesialis);
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("❌ Gagal mendaftarkan dokter: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // ✅ CEK APAKAH USERNAME SUDAH ADA (opsional, untuk validasi)
+    public boolean isUsernameExist(String username) {
+        String sql = "SELECT COUNT(*) FROM user WHERE username = ?";
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("❌ Error cek username: " + e.getMessage());
+        }
+        return false;
+    }
+    
+    // AkunService.java (untuk load data)
+    public List<UserView> lihatSemuaAkun() {
+        List<UserView> list = new ArrayList<>();
+        String sql = """
+            SELECT u.id_user, u.username,
+                   CASE 
+                       WHEN p.id_user IS NOT NULL THEN 'Petugas'
+                       WHEN d.id_user IS NOT NULL THEN 'Dokter'
+                       ELSE 'Unknown'
+                   END AS role,
+                   COALESCE(p.nama_petugas, d.nama_dokter, 'spesialis') AS nama,
+                   d.spesialis
+            FROM user u
+            LEFT JOIN petugas_puskesmas p ON u.id_user = p.id_user
+            LEFT JOIN dokter d ON u.id_user = d.id_user
+        """;
+
+    try (Connection conn = KoneksiEldercare.getConnection();
+         PreparedStatement ps = conn.prepareStatement(sql);
+         ResultSet rs = ps.executeQuery()) {
+
+        while (rs.next()) {
+            list.add(new UserView(
+                rs.getInt("id_user"),
+                rs.getString("username"),
+                rs.getString("role"),
+                rs.getString("nama"),
+                rs.getString("spesialis")
+            ));
+        }
+
+    } catch (SQLException e) {
+        System.out.println("❌ Gagal load data akun: " + e.getMessage());
+    }
+
+    return list;
+}
+
+// Optional: jika memang ingin daftar Petugas saja
+    public List<Petugas> getAllPetugas() {
+        List<Petugas> list = new ArrayList<>();
+        String sql = """
+            SELECT u.id_user, u.username, u.password, u.id_puskesmas,
+                   p.nama_petugas, p.petugas_bagian
+            FROM user u
+            JOIN petugas_puskesmas p ON u.id_user = p.id_user
+        """;
+
+        try (Connection conn = KoneksiEldercare.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                list.add(new Petugas(
+                    rs.getInt("id_user"),
+                    rs.getString("username"),
+                    rs.getString("password"),
+                    rs.getInt("id_puskesmas"),
+                    rs.getString("nama_petugas"),
+                    rs.getString("petugas_bagian")
+                ));
+            }
+
+        } catch (SQLException e) {
+            System.out.println("❌ Gagal load data petugas: " + e.getMessage());
+        }
+
+        return list;
+    }
+
+        // =======================
+    // 🔹 UPDATE AKUN
+    // =======================
+    public boolean updateAkun(int idUser, String usernameBaru, String passwordBaru, 
+                              String namaBaru, String bagianAtauSpesialis, String role) {
+        String sqlUpdateUser = "UPDATE user SET username = ?, password = ? WHERE id_user = ?";
+        String sqlUpdatePetugas = "UPDATE petugas_puskesmas SET nama_petugas = ?, petugas_bagian = ? WHERE id_user = ?";
+        String sqlUpdateDokter = "UPDATE dokter SET nama_dokter = ?, spesialis = ? WHERE id_user = ?";
+
+        try (Connection conn = KoneksiEldercare.getConnection()) {
+            conn.setAutoCommit(false);
+
+            // 1️⃣ Update tabel user
+            try (PreparedStatement psUser = conn.prepareStatement(sqlUpdateUser)) {
+                psUser.setString(1, usernameBaru);
+                psUser.setString(2, passwordBaru);
+                psUser.setInt(3, idUser);
+                psUser.executeUpdate();
+            }
+
+            // 2️⃣ Update tabel role spesifik
+            if ("Petugas".equalsIgnoreCase(role)) {
+                try (PreparedStatement psPetugas = conn.prepareStatement(sqlUpdatePetugas)) {
+                    psPetugas.setString(1, namaBaru);
+                    psPetugas.setString(2, bagianAtauSpesialis);
+                    psPetugas.setInt(3, idUser);
+                    psPetugas.executeUpdate();
+                }
+            } else if ("Dokter".equalsIgnoreCase(role)) {
+                try (PreparedStatement psDokter = conn.prepareStatement(sqlUpdateDokter)) {
+                    psDokter.setString(1, namaBaru);
+                    psDokter.setString(2, bagianAtauSpesialis);
+                    psDokter.setInt(3, idUser);
+                    psDokter.executeUpdate();
+                }
+            }
+
+            conn.commit();
+            System.out.println("✅ Akun berhasil diperbarui untuk ID: " + idUser);
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("❌ Gagal update akun: " + e.getMessage());
+            return false;
+        }
+    }
+    
+    public boolean hapusAkun(int idUser) {
+        String sqlHapusPetugas = "DELETE FROM petugas_puskesmas WHERE id_user = ?";
+        String sqlHapusDokter = "DELETE FROM dokter WHERE id_user = ?";
+        String sqlHapusUser = "DELETE FROM user WHERE id_user = ?";
+
+        try (Connection conn = KoneksiEldercare.getConnection()) {
+            conn.setAutoCommit(false);
+
+            // Hapus dulu dari tabel child
+            try (PreparedStatement ps1 = conn.prepareStatement(sqlHapusPetugas)) {
+                ps1.setInt(1, idUser);
+                ps1.executeUpdate();
+            }
+
+            try (PreparedStatement ps2 = conn.prepareStatement(sqlHapusDokter)) {
+                ps2.setInt(1, idUser);
+                ps2.executeUpdate();
+            }
+
+            // Baru hapus dari tabel user
+            try (PreparedStatement ps3 = conn.prepareStatement(sqlHapusUser)) {
+                ps3.setInt(1, idUser);
+                ps3.executeUpdate();
+            }
+
+            conn.commit();
+            System.out.println("✅ Akun ID " + idUser + " berhasil dihapus!");
+            return true;
+        } catch (SQLException e) {
+            System.out.println("❌ Gagal menghapus akun: " + e.getMessage());
+            return false;
+        }
+    }
+
+}
