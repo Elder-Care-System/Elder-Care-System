@@ -15,6 +15,14 @@
 10. Fitur tampilan hasil rekam medis
 11. Fitur logout
 
+## **Use Case**
+
+https://drive.google.com/file/d/1HJlMUX23DyBviOPN5s4RiosdJEtaizHT/view?usp=drive_link
+
+## **Flowchart**
+
+https://drive.google.com/file/d/1WU0_AQOg0lj85jfczAJzIzvTJR2Ls54p/view?usp=sharing
+
 ## **Penerapan OOP**
 
 ### **1. Encapsulation**
@@ -938,28 +946,48 @@ Disini, ServiceUser tidak punya implementasi langsung, ServiceUser hanya mendefi
 
 ## **Cara Menggunakan Program**
 ### Menu login
+User masuk sesuai role masing_masing
+
 ![Gambar WhatsApp 2025-11-02 pukul 21 16 27_b9a473da](https://github.com/user-attachments/assets/d9f21a06-58f6-4e62-9942-0e0acad5397d)
+
+### Menu Petugas bagian laporan kesehatan
+Setelah user login sebagai petugas kesehatan, maka tampilan pertama yang muncul adalah riwayat laporan kesehatan beserta menu dashboard, laporan kesehatan, rekam medis, kelola akun, dan logout.
+
+![Gambar WhatsApp 2025-11-03 pukul 07 58 43_a404e08d](https://github.com/user-attachments/assets/7133f8ed-49f3-444c-bf49-86fb844a9230)
+
+
+### Menu petugas bagian laporan kesehatan
+
+![Gambar WhatsApp 2025-11-03 pukul 07 58 43_02598bd5](https://github.com/user-attachments/assets/6d68074e-fc18-47fe-98bf-2e6d501e0b63)
+
+
+### Menu petugas bagian riwayat rekam medis
+
+![Gambar WhatsApp 2025-11-03 pukul 07 58 43_b57a7751](https://github.com/user-attachments/assets/d7b23586-fbee-4678-b96e-d7a393030582)
+
+
+### Menu petugas bagian kelola akun
+
+![Gambar WhatsApp 2025-11-03 pukul 07 58 45_9a2452ab](https://github.com/user-attachments/assets/ef64c553-c341-4d28-8204-eae2dc47fa34)
+
+### Menu petugas bagian laporan kesehatan pada fitur tambah laporan
+
+### Menu petugas bagian laporan pada fitur pencarian data lansia
+
+### Menu petugas bagian laporan pada fitur hapus data lansia
+
+### Menu petugas bagian kelola akun pada fitur tambah akun
+
+#### 1. Registrasi akun
+
+#### 2. ubah data akun
+
+### Menu dokter
+
+### Menu dokter bagian laporan kesehatan
 
 ### Menu dokter bagian rekam medis
 
-![IMG-20251103-WA0008](https://github.com/user-attachments/assets/1d2dc1fc-efe3-4b92-9f96-e7d4d3a88ee7)
+#### 1. Tambah data rekam medis
 
-### Menu petugas bagian rekam medis
-
-![IMG-20251103-WA0005](https://github.com/user-attachments/assets/c72a084e-8b29-4501-809c-807e045296d7)
-
-### Menu dokter bagian riwayat rekam medis
-
-![IMG-20251103-WA0006](https://github.com/user-attachments/assets/3db2f06e-8d28-4959-812e-719daa8ba20d)
-
-### Menu dokter bagian riwayat data laporan kesehatan
-
-![IMG-20251103-WA0004](https://github.com/user-attachments/assets/b8022ee8-418c-497e-a37d-af3202090fa1)
-
-### Menu dokter bagian laporan rekam medis
-
-![IMG-20251103-WA0003](https://github.com/user-attachments/assets/c9aa6eea-d0cd-41ff-88da-61b5c5a6f5a9)
-
-### Menu petugas bagian riwayat laporan rekam medis
-
-![IMG-20251103-WA0001](https://github.com/user-attachments/assets/58151c14-1cb8-4ee7-8a89-fad02d3b6219)
+#### 2. ubah data rekam medis
