@@ -1,0 +1,36 @@
+package Model;
+
+public class Petugas extends User {
+    private String petugasBagian;
+    private String namaPetugas;
+
+    public Petugas() {}
+
+    public Petugas(int idUser, String username, String password, int idPuskesmas,
+                   String namaPetugas, String petugasBagian) {
+        super(idUser, username, password, idPuskesmas, namaPetugas);
+        this.namaPetugas = namaPetugas;
+        this.petugasBagian = petugasBagian;
+    }
+
+    public String getPetugasBagian() { return petugasBagian; }
+    public void setPetugasBagian(String petugasBagian) { this.petugasBagian = petugasBagian; }
+
+    public String getNamaPetugas() { return namaPetugas; }
+    public void setNamaPetugas(String namaPetugas) { 
+        this.namaPetugas = namaPetugas; 
+        super.setNama(namaPetugas); // sinkronkan nama di superclass
+    }
+
+    @Override
+    public void showInfo() {
+        System.out.println("Petugas: " + namaPetugas + " (Bagian: " + petugasBagian + ")");
+    }
+
+    @Override
+    public String toString() {
+        return "Petugas{idUser=" + getIdUser() + ", username=" + getUsername() +
+               ", namaPetugas=" + namaPetugas + ", petugasBagian=" + petugasBagian + "}";
+    }
+}
+
